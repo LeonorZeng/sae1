@@ -41,7 +41,8 @@ int main() {
 		scanf("%s", cde);
 		if (strcmp(cde, "INSCRIRE") == 0) // C1
 		{
-		} // TODO
+		} 
+
 		else if (strcmp(cde, "NOTE") == 0) {// C2
 			int nb,competence;
 			float note;
@@ -50,9 +51,12 @@ int main() {
 			scanf("%f", &note);
 			if (nb > p.nbEtudiants)
 				printf("Identifiant incorrect");
+			else if (strcmp(p.etudiants[nb].etat, "en cours") != 0)
+				printf("Etudiant hors formation");
 			else
 				NOTE(&p.etudiants[nb], competence, note);
-		} // TODO
+		}
+
 		else if (strcmp(cde, "CURSUS") == 0) {// C3
 			int nb;
 			scanf("%u", &nb);
@@ -79,6 +83,7 @@ int main() {
 	} while (strcmp(cde, "EXIT") != 0); // C0
 }
 
+//initilialise le tableau de note d'un etudiant avec la valeur -1
 void Init_tabNotes(Promotion* promo, int nb) {
 	Etudiant *etu  = &promo->etudiants[nb];
 	for (Annee s = S1; s <= B3; ++s){
@@ -88,10 +93,14 @@ void Init_tabNotes(Promotion* promo, int nb) {
 	}
 }
 
+//ajoute la note d'un etudiant pour une UE
 void NOTE(Etudiant* etudiant, int ue, float note) {
-
+	/*si le dernier semestre suivi par l’´etudiant n’est pas ”en cours”,
+le message ”Etudiant hors formation”. Enfin, les messages ”UE incorrecte” ou ”Note incorrecte” doivent etre
+affiches le cas echeant.*/
 }
 
+//permet de voir tout le cursus d'un etudiant donc toutes ses notes depuis la premiere annee
 void CURSUS(Etudiant *etudiant, int id) {
 	printf("%u %s %s \n", id, etudiant->nom, etudiant->prenom);
 	Annee semestre = etudiant->ans; 
