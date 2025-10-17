@@ -27,7 +27,27 @@ typedef struct {
 	int nbEtudiants;
 	Etudiant etudiants[MAX_ETUDIANTS];
 	//float notes[MAX_ETUDIANTS][MAX_UE];
+
 } Promotion;
+
+void EXIT() {
+	EXIT(0);
+}
+void INSCRIRE(char nom[], char prenom[]) {
+	for (int i = 0; i < nbEtudiants; i++) {
+		if (strcmp(etudiant[i].nom, nom) == 0 && strcmp(etudiant[i].prenom, prenom) == 0) {
+			printf("Nom incorrect\n");
+			return;
+		}
+	}
+
+void ETUDIANT 
+
+
+
+
+
+
 
 void CURSUS(Etudiant* etudiant, int id);
 void NOTE(Etudiant* etudiant, int ue, float note);
@@ -39,10 +59,12 @@ int main() {
 	char cde[MAX_CHAR] = " ";
 	do {
 		scanf("%s", cde);
-		if (strcmp(cde, "INSCRIRE") == 0) // C1
+		if (strcmp(cde, "INSCRIRE") == 0) // C1 
 		{
-		} 
+			scanf("%s %s", nom, prenom);
+			inscrire(nom, prenom);
 
+		} // TODO
 		else if (strcmp(cde, "NOTE") == 0) {// C2
 			int nb,competence;
 			float note;
@@ -54,7 +76,9 @@ int main() {
 			else if (strcmp(p.etudiants[nb].etat, "en cours") != 0)
 				printf("Etudiant hors formation");
 			else
+			{
 				NOTE(&p.etudiants[nb], competence, note);
+			}
 		}
 
 		else if (strcmp(cde, "CURSUS") == 0) {// C3
@@ -95,8 +119,8 @@ void Init_tabNotes(Promotion* promo, int nb) {
 
 //ajoute la note d'un etudiant pour une UE
 void NOTE(Etudiant* etudiant, int ue, float note) {
-	/*si le dernier semestre suivi par l’´etudiant n’est pas ”en cours”,
-le message ”Etudiant hors formation”. Enfin, les messages ”UE incorrecte” ou ”Note incorrecte” doivent etre
+	/*si le dernier semestre suivi par lâ€™Â´etudiant nâ€™est pas â€en coursâ€,
+le message â€Etudiant hors formationâ€. Enfin, les messages â€UE incorrecteâ€ ou â€Note incorrecteâ€ doivent etre
 affiches le cas echeant.*/
 }
 
