@@ -26,7 +26,6 @@ typedef struct {
 typedef struct {
 	int nbEtudiants;
 	Etudiant etudiants[MAX_ETUDIANTS];
-	//float notes[MAX_ETUDIANTS][MAX_UE];
 } Promotion;
 
 /* Peut-être pas utile car on compare directement la chaine de caractère dans le main pour vérifier si on quitte
@@ -38,9 +37,9 @@ void INSCRIRE(char nom[], char prenom[]) {
 	for (int i = 0; i < nbEtudiants; i++) {
 		if (strcmp(etudiant[i].nom, nom) == 0 && strcmp(etudiant[i].prenom, prenom) == 0) {
 			printf("Nom incorrect\n");
-			return;
 		}
 	}
+}
 
 void ETUDIANT 
 
