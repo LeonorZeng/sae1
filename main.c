@@ -27,12 +27,13 @@ typedef struct {
 	int nbEtudiants;
 	Etudiant etudiants[MAX_ETUDIANTS];
 	//float notes[MAX_ETUDIANTS][MAX_UE];
-
 } Promotion;
 
+/* Peut-être pas utile car on compare directement la chaine de caractère dans le main pour vérifier si on quitte
 void EXIT() {
 	EXIT(0);
-}
+}*/
+
 void INSCRIRE(char nom[], char prenom[]) {
 	for (int i = 0; i < nbEtudiants; i++) {
 		if (strcmp(etudiant[i].nom, nom) == 0 && strcmp(etudiant[i].prenom, prenom) == 0) {
@@ -59,36 +60,42 @@ int main() {
 	char cde[MAX_CHAR] = " ";
 	do {
 		scanf("%s", cde);
-		if (strcmp(cde, "INSCRIRE") == 0) // C1 
-		{
+		if (strcmp(cde, "INSCRIRE") == 0){ // C1 
+			char nom[MAX_CHAR];
+			char prenom[MAX_CHAR];
 			scanf("%s %s", nom, prenom);
 			inscrire(nom, prenom);
 
-		} // TODO
-		else if (strcmp(cde, "NOTE") == 0) {// C2
+		}
+
+		else if (strcmp(cde, "NOTE") == 0) { // C2
 			int nb,competence;
 			float note;
+			//Des scanf pour recuperer les valeurs envoyer par l'utilisateur
 			scanf("%u", &nb);
 			scanf("%u", &competence);
 			scanf("%f", &note);
+			//Test pour voir si l'etudiant est enregistrer
 			if (nb > p.nbEtudiants)
 				printf("Identifiant incorrect");
+			//Test pour voir si l'étudiant etudit toujours à l'IUT
 			else if (strcmp(p.etudiants[nb].etat, "en cours") != 0)
 				printf("Etudiant hors formation");
 			else
-			{
 				NOTE(&p.etudiants[nb], competence, note);
-			}
 		}
 
 		else if (strcmp(cde, "CURSUS") == 0) {// C3
 			int nb;
 			scanf("%u", &nb);
+			//Test pour voir si l'etudiant est enregistrer
+			//Peut-être creer une fonction pour ça
 			if (nb > p.nbEtudiants)
 				printf("Identifiant incorrect");
 			else
 				CURSUS(&p.etudiants[nb], nb);
-		} // TODO
+		}
+
 		else if (strcmp(cde, "ETUDIANTS") == 0) // C4
 		{
 		} // TODO
@@ -119,9 +126,15 @@ void Init_tabNotes(Promotion* promo, int nb) {
 
 //ajoute la note d'un etudiant pour une UE
 void NOTE(Etudiant* etudiant, int ue, float note) {
-	/*si le dernier semestre suivi par l’´etudiant n’est pas ”en cours”,
-le message ”Etudiant hors formation”. Enfin, les messages ”UE incorrecte” ou ”Note incorrecte” doivent etre
-affiches le cas echeant.*/
+	//Verifie si la note et l'UE donner sont correctes (peut-être le mettre dans le main)
+	if (ue < 1 or ue > 6)
+		printf("UE incorrecte")
+	else if (note < NOTE_MIN or note > NOTE_MAX)
+		printf("Note incorrecte")
+	else {
+		etudiant->notes[etudiant->ans][ue] = note;
+		printf("Note enregistree")
+	}
 }
 
 //permet de voir tout le cursus d'un etudiant donc toutes ses notes depuis la premiere annee
