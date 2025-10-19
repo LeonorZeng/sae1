@@ -35,8 +35,8 @@ void INSCRIRE(Promotion *promo, char nom, char prenom);
 void CURSUS(Etudiant* etudiant, int id);
 void NOTE(Etudiant* etudiant, int ue, float note);
 void ETUDIANTS(const Promotion* promo);
-void DEFAILLANCE(Promotion* promo, int id);
-void DEMISSION(Promotion* promo, int id);
+void DEFAILLANCE(Etudiant* etudiant, int id);
+void DEMISSION(Etudiant* etudiant, int id);
 
 int main() {
 	Promotion p;
@@ -86,13 +86,13 @@ int main() {
 			int nb;
 			scanf("%d", &nb);
 			if (Verifie_id(&p, nb))
-				DEMISSION(&p, nb-1);
+				DEMISSION(&p.etudiants[nb - 1], nb-1);
 		}
 	
 		else if (strcmp(cde, "DEFAILLANCE") == 0) { // C6
 			int nb;
 			scanf("%d", &nb);
-			DEFAILLANCE(&p, nb-1);
+			DEFAILLANCE(&p.etudiants[nb-1], nb - 1);
 		}
 
 		else if (strcmp(cde, "JURY") == 0) { // C7
@@ -107,8 +107,10 @@ int main() {
 
 //verifie que l'identifiant utilisateur est correct
 int Verifie_id(Promotion* promo, int id) {
-	if (id < 1 || id > promo->nbEtudiants)
+	if (id < 1 || id > promo->nbEtudiants){
 		printf("Identifiant incorrect\n");
+		return 0;
+	}
 	else
 		return 1;
 }
@@ -122,15 +124,6 @@ void Init_tabNotes(Promotion* promo, int nb) {
 			etu->notes[s][i] = -1.f;
 		}
 	}
-}
-
-//verifie qu'un etudiant n'est pas deja inscrit
-int Verifie_prenomEtnom(Promotion* promo, char nom, char prenom) {
-	for (int i = 0; i < promo->nbEtudiants; ++i) {
-		if (strcmp(promo->etudiants[i].nom, nom) == 0 && strcmp(promo->etudiants[i].prenom, prenom) == 0)
-			printf("Nom incorrect\n");
-	}
-	return 1;
 }
 
 //inscrit un etudiant dans la promo
