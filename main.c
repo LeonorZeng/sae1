@@ -257,7 +257,7 @@ void cursus(const Etudiant* etudiant, int id) {
 				printf("* ");
 			else
 				printf("%.1f ", floorf(note * 10.f) / 10.f);
-			//pour afficher c car Code type enum
+				//pour afficher c car Code type enum
 			switch (c) {
 			case ADM:
 				printf("(ADM) - ");
@@ -276,7 +276,9 @@ void cursus(const Etudiant* etudiant, int id) {
 				break;
 			default:
 				printf("(*) - ");
+				break;	
 			}
+
 		}
 		if (s != semestre)
 			printf("\n");
@@ -455,7 +457,6 @@ void bilan(const Promotion* p, int annee) {
 	}
 
 	int dem = 0, def = 0, encours = 0, aj = 0, passe = 0;
-	printf("BILAN %d\n", annee);
 
 	for (int i = 0; i < p->nbEtudiants; ++i) {
 		const Etudiant* e = &p->etudiants[i];
@@ -499,3 +500,4 @@ void bilan(const Promotion* p, int annee) {
 	printf("%d ajourne(s)\n", aj);
 	printf("%d passe(s)\n", passe);
 }
+
